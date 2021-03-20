@@ -1,6 +1,8 @@
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
+from django.contrib import messages
 
 from .models import Book
 from .forms import BookForm
@@ -44,3 +46,10 @@ class BookUpdateView(UpdateView):
         context['form'] = self.form_class
         context['title'] = 'Registrar libro'
         return context
+
+
+def delete_book(request, pk):
+    obj = get_object_or_404(Book, pk=pk)
+    obj.delete()
+    messages.success(request, 'Libro eliminado correctamente')
+    return redirect(to='books:list')

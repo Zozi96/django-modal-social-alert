@@ -15,7 +15,9 @@
 
 <script type="text/javascript" src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery-3.6.0.js' %}"></script>
-
+<script type="text/javascript" src="{% static 'js/sweetalert2.all.min.js' %}"></script>
 {% block extrajs %}{% endblock %}
+
+{% include 'includes/messages.html' %}
 </body>
 </html>
