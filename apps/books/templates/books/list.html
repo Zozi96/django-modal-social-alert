@@ -1,12 +1,13 @@
-{% extends "base.html" %} {% load static %}
+{% extends "base.html" %} {% load static %} {% load social_share %}
 {% block content %}
     <div class="container">
         <a onclick="create_modal('{% url 'books:create' %}')" class="btn btn-success">Agregar</a>
-        <table class="table">
+        <table class="table table-responsive">
             <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nombre del libro</th>
+                <th>Compartelo</th>
                 <th scope="col">Opciones</th>
             </tr>
             </thead>
@@ -16,7 +17,13 @@
                     <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ book.title }}</td>
                     <td>
-                        <a onclick="edit_modal('{% url 'books:update' book.pk %}')" class="btn btn-info">Editar</a>
+                        {% post_to_twitter "Nuevo libro: {{book.title}}. Check it out!" object_or_url "Twittear" %}
+
+                        {% post_to_facebook object_or_url "Compartir en facebook" %}
+                    </td>
+                    <td>
+                        <a onclick="edit_modal('{% url 'books:update' book.pk %}')" class="btn btn-light">Editar</a>
+                        <a class="btn-info btn" href="{% url 'books:detail' book.pk %}">Ver</a>
                         <a class="btn-danger btn" href="#" onclick="deleteBook({{ book.pk }})">Eliminar</a>
                     </td>
                 </tr>

@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.views.generic import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib import messages
@@ -46,6 +47,11 @@ class BookUpdateView(UpdateView):
         context['form'] = self.form_class
         context['title'] = 'Registrar libro'
         return context
+
+
+class BookDetailView(DetailView):
+    model = Book
+    template_name = 'books/detail.html'
 
 
 def delete_book(request, pk):
