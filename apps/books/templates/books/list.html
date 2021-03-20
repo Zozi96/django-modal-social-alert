@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% load static %}
 {% block content %}
     <div class="container">
-        <a href="{% url 'books:create' %}" class="btn btn-info">Agregar</a>
+        <a onclick="create_modal('{% url 'books:create' %}')" class="btn btn-success">Agregar</a>
         <table class="table">
             <thead>
             <tr>
@@ -16,7 +16,7 @@
                     <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ book.title }}</td>
                     <td>
-                        <a onclick="open_modal('{% url 'books:update' book.pk %}')" class="btn btn-info">Editar</a>
+                        <a onclick="edit_modal('{% url 'books:update' book.pk %}')" class="btn btn-info">Editar</a>
                     </td>
                 </tr>
             {% empty %}
@@ -28,6 +28,7 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="modal fade" id="create" role="dialog"></div>
         <div class="modal fade" id="edit" role="dialog"></div>
     </div>
 {% endblock %}
@@ -35,7 +36,13 @@
     <script type="text/javascript">
         const $ = jQuery.noConflict()
 
-        function open_modal(url) {
+        function create_modal(url) {
+            $('#create').load(url, function () {
+                $(this).modal('show');
+            })
+        }
+
+        function edit_modal(url) {
             $('#edit').load(url, function () {
                 $(this).modal('show');
             })

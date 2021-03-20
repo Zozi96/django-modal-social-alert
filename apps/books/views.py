@@ -24,7 +24,7 @@ class BookCreateView(CreateView):
     model = Book
     form_class = BookForm
     success_url = reverse_lazy('books:list')
-    template_name = 'books/create.html'
+    template_name = 'books/includes/modal_create.html'
 
     def get_context_data(self, **kwargs):
         context = super(BookCreateView, self).get_context_data(**kwargs)
