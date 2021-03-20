@@ -1,27 +1,44 @@
 {% extends "base.html" %} {% load static %}
 {% block content %}
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre del libro</th>
-            <th scope="col">Opciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for book in books %}
+    <div class="container">
+        <a href="{% url 'books:create' %}" class="btn btn-info">Agregar</a>
+        <table class="table">
+            <thead>
             <tr>
-                <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ book.title }}</td>
-                <td>
-                    <a href="{#% url '' %#}" class="btn btn-info">Editar</a>
-                </td>
+                <th scope="col">#</th>
+                <th scope="col">Nombre del libro</th>
+                <th scope="col">Opciones</th>
             </tr>
-        {% empty %}
-            <tr>
-                <td>No hay elementos</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for book in books %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ book.title }}</td>
+                    <td>
+                        <a onclick="open_modal('{% url 'books:update' book.pk %}')" class="btn btn-info">Editar</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>No hay elementos</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="modal fade" id="edit" role="dialog"></div>
+    </div>
+{% endblock %}
+{% block extrajs %}
+    <script type="text/javascript">
+        const $ = jQuery.noConflict()
+
+        function open_modal(url) {
+            $('#edit').load(url, function () {
+                $(this).modal('show');
+            })
+        }
+    </script>
 {% endblock %}
