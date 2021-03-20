@@ -7,7 +7,7 @@
         <form action="{% url 'books:update' object.pk %}" method="post">
             <div class="modal-body">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {{ form }}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>

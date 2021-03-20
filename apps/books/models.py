@@ -3,7 +3,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Book(models.Model):
-    title = models.CharField(verbose_name=_('Title'), max_length=100)
+    title = models.CharField(verbose_name='Titulo del libro', max_length=100)
+    date_release = models.DateField(verbose_name='Fecha de estreno')
 
     class Meta:
         app_label = 'books'
