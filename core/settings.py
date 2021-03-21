@@ -6,7 +6,7 @@ SECRET_KEY = 'c&=uozs$cnsk^oh3@^a9**$c3+g)!6-!=o$)2f&j_la=e%-tuh'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*', '127.0.0.1', 'localhost', 'bd2a708e6ef3.ngrok.io']
+ALLOWED_HOSTS = ['*', '127.0.0.1', 'localhost']
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -21,9 +21,7 @@ LOCAL_APPS = [
     'apps.books',
 ]
 
-THIRD_PARTY_APPS = [
-    'django_social_share',
-]
+THIRD_PARTY_APPS = []
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 

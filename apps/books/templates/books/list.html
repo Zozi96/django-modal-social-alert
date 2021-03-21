@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load static %} {% load social_share %}
+{% extends "base.html" %} {% load static %}
 {% block content %}
     <div class="container">
         <a onclick="create_modal('{% url 'books:create' %}')" class="btn btn-success">Agregar</a>
@@ -7,7 +7,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nombre del libro</th>
-                <th>Compartelo</th>
+                <th scope="col">Compartelo</th>
                 <th scope="col">Opciones</th>
             </tr>
             </thead>
@@ -17,14 +17,14 @@
                     <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ book.title }}</td>
                     <td>
-                        {% post_to_twitter "Nuevo libro: {{book.title}}. Check it out!" object_or_url "Twittear" %}
-
-                        {% post_to_facebook object_or_url "Compartir en facebook" %}
+                        <div class="fb-share-button" data-href="/detail/{{ book.pk }}/" data-layout="button"
+                             data-size="large"></div>
                     </td>
                     <td>
-                        <a onclick="edit_modal('{% url 'books:update' book.pk %}')" class="btn btn-light">Editar</a>
-                        <a class="btn-info btn" href="{% url 'books:detail' book.pk %}">Ver</a>
-                        <a class="btn-danger btn" href="#" onclick="deleteBook({{ book.pk }})">Eliminar</a>
+                        <a onclick="edit_modal('{% url 'books:update' book.pk %}')">
+                            <i class="fas fa-edit"></i></a>
+                        <a href="{% url 'books:detail' book.pk %}"><i class="far fa-eye"></i></a>
+                        <a onclick="deleteBook({{ book.pk }})"><i class="fas fa-trash-alt"></i></a>
                     </td>
                 </tr>
             {% empty %}
@@ -73,5 +73,17 @@
                 }
             })
         }
+    </script>
+
+    <div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            let js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v3.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     </script>
 {% endblock %}
